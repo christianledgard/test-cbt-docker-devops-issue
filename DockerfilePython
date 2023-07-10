@@ -1,0 +1,17 @@
+FROM python:3.11
+RUN pip3 install poetry
+
+RUN poetry config virtualenvs.create true --local
+RUN poetry config virtualenvs.in-project true --local
+
+
+COPY pyproject.toml /app/
+COPY poetry.lock /app/
+COPY src /app/src
+COPY tests /app/tests
+
+WORKDIR /app
+
+RUN poetry install
+
+RUN poetry run pytest tests/consumer/test_products_consumer.py

@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "testconsumerdocker"
+version = "0.1.0"
+description = ""
+authors = ["Christian Ledgard <39962750+christianledgard@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Flask = "1.1.1"
+
+[tool.poetry.group.dev.dependencies]
+requests = "2.31.0"
+pytest = "^7.2.1"
+pact-python = "*"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,19 @@
+FROM 893087526002.dkr.ecr.eu-west-1.amazonaws.com/bynder-python:3.11
+ARG user=bynder
+USER root
+RUN apk add --no-cache libffi openssl libstdc++
+RUN apk add --no-cache --virtual build-dependencies gcc g++ make libffi-dev librdkafka-dev openssl-dev
+
+RUN poetry config virtualenvs.create true --local
+RUN poetry config virtualenvs.in-project true --local
+
+COPY pyproject.toml /app/
+COPY poetry.lock /app/
+COPY src /app/src
+COPY tests /app/tests
+
+WORKDIR /app
+
+RUN poetry install
+
+RUN poetry run pytest tests/consumer/test_products_consumer.py
